@@ -11,6 +11,15 @@ import { averageSentiment, averageVolume, computeAtr, scoreHeadlineSentiment } f
 import { SignalCurrent, SignalSnapshot } from "@/lib/scoring/types";
 import { BarData, NewsData } from "@/lib/market-data/types";
 
+export type SymbolSignals = {
+  symbolId: string;
+  ticker: string;
+  name: string;
+  current: SignalCurrent;
+  fetchedAt: Date;
+  degraded: boolean;
+};
+
 function looksLikeSyntheticBars(bars: Array<{ close: number }>): boolean {
   if (bars.length <= 1) return true;
   if (bars.length < 10) return false;

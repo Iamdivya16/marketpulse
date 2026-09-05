@@ -262,7 +262,7 @@ export async function buildSylcFeed(userId: string): Promise<SylcResponse> {
       symbolId: row.item.symbolId,
       ticker: row.item.symbol.ticker,
       name: row.item.symbol.name,
-      topNews: row.signals.current.newsSinceSnapshot.slice(0, 3).map((news) => ({
+      topNews: row.signals.current.newsSinceSnapshot.slice(0, 3).map((news: { title: string; url: string; publishedAt: string }) => ({
         title: news.title,
         url: news.url,
         publishedAt: news.publishedAt,
