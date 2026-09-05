@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: groww-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: groww
+      POSTGRES_PASSWORD: groww
+      POSTGRES_DB: groww
+    volumes:
+      - groww_pg_data:/var/lib/postgresql/data
+
+volumes:
+  groww_pg_data:
