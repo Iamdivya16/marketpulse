@@ -231,11 +231,38 @@ Tests cover:
 
 ---
 
+## Deploy a public demo (Vercel)
+
+This is the URL you submit as the demo link.
+
+1. Create a free Postgres database on [Neon](https://neon.tech). Copy the connection string (prefer the **direct / non-pooled** URI for Prisma).
+2. Open [Vercel](https://vercel.com) → **Add New** → **Project** → import `Iamdivya16/marketpulse`.
+3. Add environment variables (Production):
+
+| Name | Value |
+|------|--------|
+| `DATABASE_URL` | Neon connection string |
+| `AUTH_SECRET` | Output of `openssl rand -base64 32` |
+| `FINNHUB_API_KEY` | Your Finnhub key |
+
+4. Deploy. The build runs `prisma migrate deploy` so tables are created.
+5. Seed the demo user **once** from this laptop (uses your production `DATABASE_URL`):
+
+```bash
+cd /Users/apple/Desktop/groww
+DATABASE_URL="paste-neon-url-here" npx prisma db seed
+```
+
+6. Open the Vercel URL and log in with `demo@marketpulse.app` / `password123`.
+
+Submit that Vercel URL as the demo link. Source stays at https://github.com/Iamdivya16/marketpulse
+
+---
+
 ## Deployment notes
 
-- Set `AUTH_SECRET`, `DATABASE_URL`, and `FINNHUB_API_KEY` in your host environment
-- Run `npm run build && npm run start` (or deploy to Vercel + managed Postgres)
-- Finnhub free tier: ~60 API calls/min — the app caches bars and news in Postgres to stay within limits
+- Set `AUTH_SECRET`, `DATABASE_URL`, and `FINNHUB_API_KEY` in the host environment
+- Finnhub free tier: ~60 API calls/min — bars and news are cached in Postgres
 
 ---
 
